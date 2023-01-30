@@ -1,0 +1,1 @@
+insert into user(id,name,email,phone,gender) value (1001,"test1", "test1@gmail.com", "hashPassword", UserType "testphone")
