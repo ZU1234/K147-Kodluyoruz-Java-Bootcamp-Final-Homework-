@@ -1,0 +1,380 @@
+{
+	"info": {
+		"_postman_id": "385342b9-de82-436a-b57f-2b3ec0a6d755",
+		"name": "bitirme ödevi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "24265031"
+	},
+	"item": [
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "createUser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"<Test2> userName\", \r\n    \"email\":\"<Test2> test1@mail.com\",\r\n    \"password\":\"<Test1> password\",\r\n    \"type\":\"CORPORATE\",\r\n    \"phone\":\"<Test1> phone\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:9092/users"
+					},
+					"response": []
+				},
+				{
+					"name": "createUser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Zeynep Uygun\", \r\n    \"email\":\"testzeynp@mail.com\",\r\n    \"password\":\"1ytyt4\",\r\n    \"type\":\"INDIVIDUAL\",\r\n    \"phone\":\"01234567891\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:9092/users"
+					},
+					"response": []
+				},
+				{
+					"name": "payment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"creditCard\":{\r\n       \r\n       \"creditCardNumber\":\"123456789\",\r\n    \"type\":\"Visa\",\r\n    \"cvv\":\"123\",\r\n    \"cardHolderName\":\"zeynep uygun\",\r\n    \"cardExpityMonth\":11,\r\n    \"cardExpityYear\":2050},\r\n    \"userId\":1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:9092/users/payment"
+					},
+					"response": []
+				},
+				{
+					"name": "getBasketByUser",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8888/vehicles/basket/1"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "admins",
+			"item": [
+				{
+					"name": "createBusVehicle",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"no\":\"HSNGH1256\",\r\n    \"vehicleType\":\"BUS\",\r\n    \"fromWhere\": \"aNkarA\",\r\n    \"whereTo\": \"İzmİr\",\r\n    \"departureTime\":\"17-09-2022\",\r\n    \"departureClock\":\"17:00\",\r\n    \"clockOfArrival\":\"16:00\",\r\n    \"price\": 280\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:9092/admins"
+					},
+					"response": []
+				},
+				{
+					"name": "createBusVehicle",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"no\":\"10-FS-326\",\r\n    \"vehicleType\":\"BUS\",\r\n    \"fromWhere\": \"Çanakkale\",\r\n    \"whereTo\": \"istanbul\",\r\n    \"departureTime\":\"2016-05-01\",\r\n    \"departureClock\":\"21:02\",\r\n    \"clockOfArrival\":\"22:10\",\r\n    \"price\": 350\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:9092/admins"
+					},
+					"response": []
+				},
+				{
+					"name": "createPlaneVehicle",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"no\":\"12-KL-123\",\r\n    \"vehicleType\":\"PLANE\",\r\n    \"fromWhere\": \"Çanakkale\",\r\n    \"whereTo\": \"İstanbul\",\r\n    \"departureTime\":\"2016-05-01\",\r\n    \"departureClock\":\"21:02\",\r\n    \"clockOfArrival\":\"22:10\",\r\n    \"price\": 470\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:9092/admins"
+					},
+					"response": []
+				},
+				{
+					"name": "vehicleCancellation",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"no\":\"18-DLL-745\",\r\n    \"vehicleType\":\"PLANE\",\r\n    \"fromWhere\": \"Bursa\",\r\n    \"whereTo\": \"İstanbul\",\r\n    \"departureTime\":\"7-10-2022\",\r\n    \"departureClock\":\"09:00\",\r\n    \"clockOfArrival\":\"13:30\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:9092/admins/1"
+					},
+					"response": []
+				},
+				{
+					"name": "totalTicketsAndTotalPricesByVehicle",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "localhost:9092/admins/1"
+					},
+					"response": []
+				},
+				{
+					"name": "getAllVehicles",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:9092/vehicles"
+					},
+					"response": []
+				},
+				{
+					"name": "getAllUsers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:9092/admins/users"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "vehicles",
+			"item": [
+				{
+					"name": "addProductBasketByUserId",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{   \r\n  \"userId\":1, \"vehicleId\":1, \"passengerName\":\"yolcuName\", \"gender\":\"WOMAN\"\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:9092/vehicles/basket"
+					},
+					"response": []
+				},
+				{
+					"name": "getAllByRoute",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fromWhere\": \"Çanakkale\",\r\n    \"whereTo\": \"İstanbul\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:9092/vehicles"
+					},
+					"response": []
+				},
+				{
+					"name": "getAllByRoute (missing letters)",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fromWhere\": \"kkale\",\r\n    \"whereTo\": \"tanbul\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:9092/vehicles/route"
+					},
+					"response": []
+				},
+				{
+					"name": "getAllByRoute (uppercase small letters)",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fromWhere\": \"bUrsa\",\r\n    \"whereTo\": \"staNbul\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:9092/vehicles"
+					},
+					"response": []
+				},
+				{
+					"name": "getAllByDate",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "2016-05-01\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:9092/vehicles/bydate"
+					},
+					"response": []
+				},
+				{
+					"name": "getAllByVehicleType",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\"PLANE\"\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:9092/vehicles/vehicletype"
+					},
+					"response": []
+				},
+				{
+					"name": "getAllByVehicleType",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\"BUS\"",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:9092/vehicles/vehicletype"
+					},
+					"response": []
+				},
+				{
+					"name": "getBasketByUserId",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\":1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:9092/vehicles/basket/1"
+					},
+					"response": []
+				},
+				{
+					"name": "getAllVehicles Copy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:9092/vehicles"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
