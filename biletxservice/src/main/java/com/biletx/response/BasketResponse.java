@@ -3,7 +3,9 @@ package com.biletx.response;
 import com.biletx.enums.GenderType;
 import com.biletx.enums.VehicleStatus;
 import com.biletx.enums.VehicleType;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class BasketResponse {
@@ -14,6 +16,7 @@ public class BasketResponse {
     private VehicleType vehicleType;
     private String fromWhere;
     private String whereTo;
+
     private Date departureTime;
     private String departureClock;
     private String clockOfArrival;

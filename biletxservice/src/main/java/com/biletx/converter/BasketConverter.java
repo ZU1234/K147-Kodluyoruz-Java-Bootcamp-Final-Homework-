@@ -25,10 +25,12 @@ public class BasketConverter {
         response.setWhereTo(basket.getVehicle().getWhereTo());
         response.setDepartureTime(basket.getVehicle().getDepartureTime());
         response.setDepartureClock(basket.getVehicle().getDepartureClock());
+        response.setClockOfArrival(basket.getVehicle().getClockOfArrival());
         response.setPassengerName(basket.getPassengerName());
         response.setGender(basket.getGender());
         response.setPrice(basket.getVehicle().getPrice());
         return response;
 
     }
+
 }

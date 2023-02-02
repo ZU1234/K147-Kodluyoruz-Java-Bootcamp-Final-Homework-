@@ -1,37 +1,42 @@
 package com.biletx.converter;
 
 import com.biletx.model.Ticket;
-import com.biletx.model.User;
 import com.biletx.model.UserSendMail;
 import com.biletx.model.UserSendSms;
+import com.biletx.request.UserRequest;
+import org.springframework.stereotype.Component;
 
+import javax.persistence.Converter;
 import java.time.LocalDateTime;
 
+@Component
 public class MessageConverter {
-    public String message(Ticket ticket) {
+    private String message(Ticket ticket) {
         return "Bilet Bilgileri : " +
-                "\nBilet Id : " + ticket.getId() +
-                "\nAraç tipi : " + ticket.getVehicle().getVehicleType() +
-                "\nAd-Soyad : " + ticket.getPassengerName() +
-                "\nCinsiyet : " + ticket.getGender() +
-                "\nGüzergah : " + ticket.getVehicle().getFromWhere() +
+                "Bilet Id : " + ticket.getId() +
+                "Araç tipi : " + ticket.getVehicle().getVehicleType() +
+                "Ad-Soyad : " + ticket.getPassengerName() +
+                "Cinsiyet : " + ticket.getGender() +
+                "Güzergah : " + ticket.getVehicle().getFromWhere() +
                 "-" + ticket.getVehicle().getWhereTo() +
-                "\nSaat : " + ticket.getVehicle().getDepartureClock();
+                "Saat : " + ticket.getVehicle().getDepartureClock();
     }
 
     public UserSendSms convertSms(Ticket ticket) {
         UserSendSms userSendSms = new UserSendSms();
-        userSendSms.setUser(ticket.getUser());
+        userSendSms.setUserId(ticket.getUser().getId());
         userSendSms.setSendDate(LocalDateTime.now());
         userSendSms.setMessage(message(ticket));
-        userSendSms.setVehicle(ticket.getVehicle());
+        userSendSms.setVehicleId(ticket.getVehicle().getId());
         return userSendSms;
     }
-    public UserSendMail convertMail(User user) {
+
+    public  UserSendMail convertMail(UserRequest request) {
         UserSendMail userSendMail = new UserSendMail();
-        userSendMail.setUser(user);
+        userSendMail.setUserEmail(request.getEmail());
         userSendMail.setSendDate(LocalDateTime.now());
-        userSendMail.setMessage("Merhaba "+user.getName()+" aramıza hoşgeldin."+" Biletx müşteri kaydın başarı ile " +
+        userSendMail.setMessage("Merhaba " + request.getName() + " aramıza hoşgeldin." + " Biletx müşteri kaydın " +
+                "başarı ile " +
                 "oluşturuldu.");
         return userSendMail;
     }

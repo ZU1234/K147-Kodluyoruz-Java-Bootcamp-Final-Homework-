@@ -1,0 +1,14 @@
+server:
+  port: 9092
+spring:
+  application:
+    name: biletx-gateway-service
+  cloud:
+    gateway:
+      routes:
+        - id: biletx-service
+          uri: lb://biletx-service
+          predicates:
+            - Path=/users/**,/vehicles/**,/admins/**
+
+

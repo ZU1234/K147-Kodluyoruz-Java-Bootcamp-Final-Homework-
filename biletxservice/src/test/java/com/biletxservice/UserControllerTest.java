@@ -25,7 +25,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
-
 import java.time.Month;
 import java.util.List;
 
@@ -36,18 +35,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(UserController.class)
-@ContextConfiguration(classes = {UserController.class,UserService.class})
+@ContextConfiguration(classes = {UserController.class, UserService.class})
 public class UserControllerTest {
 
+    private final ObjectMapper mapper = new ObjectMapper();
     @Autowired
     private MockMvc mockMvc;
-
     @MockBean
     private UserService userService;
-
-    private final ObjectMapper mapper = new ObjectMapper();
-
-
 
     @Test
     void it_should_get_all_users() throws Exception {
@@ -90,9 +85,9 @@ public class UserControllerTest {
                 .andExpect(jsonPath("$.type").value(UserType.INDIVIDUAL.toString()));
 
     }
+
     @Test
     void it_should_payment() throws Exception {
-
 
 
         Mockito.when(userService.payment(Mockito.any(PaymentRequest.class)))
@@ -110,9 +105,9 @@ public class UserControllerTest {
 
 
     }
+
     @Test
     void it_should_login() throws Exception {
-
 
 
         Mockito.when(userService.login(Mockito.any(LoginRequest.class)))
@@ -132,11 +127,11 @@ public class UserControllerTest {
     }
 
     private LoginRequest getLoginRequest() {
-        return new LoginRequest("test@gmail.com","test123");
+        return new LoginRequest("test@gmail.com", "test123");
     }
 
     private String getLoginResponse() {
-        return  "Giriş işlemi başarılı";
+        return "Giriş işlemi başarılı";
     }
 
     private UserRequest getUserRequest() {
@@ -151,12 +146,14 @@ public class UserControllerTest {
     private UserResponse getUserResponse() {
         return new UserResponse("test", "test@gmail.com", UserType.INDIVIDUAL);
     }
+
     private PaymentRequest getPaymentRequest() {
 
-        CreditCard creditCard =new CreditCard("testCardNumber", CreditCardType.Visa,"testcvv","testUser",
+        CreditCard creditCard = new CreditCard("testCardNumber", CreditCardType.Visa, "testcvv", "testUser",
                 2025, Month.AUGUST);
-        return new PaymentRequest(creditCard,1, PaymentType.EFT);
+        return new PaymentRequest(creditCard, 1, PaymentType.EFT);
     }
+
     private PaymentResponse getPaymentResponse() {
         return new PaymentResponse("Odeme islemi basarili.", HttpStatus.OK);
     }

@@ -3,30 +3,14 @@ package com.biletx.model;
 
 import com.biletx.enums.GenderType;
 
-import javax.persistence.*;
-
-
-@Entity
-@Table(name = "tickets")
 
 public class Ticket {
-
-    @Id
-    @SequenceGenerator(name = "ticket", sequenceName = "ticket_seq")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ticket_seq")
-    @Column(name = "id")
     private Integer id;
-
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
     private User user;
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "vehicle_id")
     private Vehicle vehicle;
-    @Column(name = "passenger_name")
+
     private String passengerName;
-    @Column(name = "gender")
-    @Enumerated(EnumType.STRING)
+
     private GenderType gender;
 
     public Ticket() {

@@ -5,6 +5,7 @@ import com.biletx.request.PaymentRequest;
 import com.biletx.request.UserRequest;
 import com.biletx.response.PaymentResponse;
 import com.biletx.response.UserResponse;
+import com.biletx.response.VehicleResponse;
 import com.biletx.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,10 +33,6 @@ public class UserController {
         return ResponseEntity.ok("Giriş yaptınız.");
     }
 
-    @GetMapping
-    public ResponseEntity<List<UserResponse>> getAll() {
-        return ResponseEntity.ok(userService.getAll());
-    }
 
     @PostMapping(value = "/payment")
     public ResponseEntity<PaymentResponse> payment(@RequestBody PaymentRequest paymentRequest) {

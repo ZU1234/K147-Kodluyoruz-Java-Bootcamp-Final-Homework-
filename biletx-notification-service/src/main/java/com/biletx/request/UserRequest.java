@@ -1,43 +1,25 @@
-package com.biletx.model;
-
+package com.biletx.request;
 
 import com.biletx.enums.UserType;
 
-
-public class User {
-
-
-    private Integer id;
+public class UserRequest {
 
     private String name;
-
     private String email;
-
     private String password;
-
     private UserType type;
-
     private String phone;
 
-
-    public User() {
+    public UserRequest() {
         super();
     }
 
-    public User(String name, String email, String password, UserType type, String phone) {
+    public UserRequest(String name, String email, String password, UserType type, String phone) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.type = type;
         this.phone = phone;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -82,10 +64,9 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", mail='" + email + '\'' +
+        return "UserRequest{" +
+                "name='" + name + '\'' +
+                ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", type=" + type +
                 ", phone='" + phone + '\'' +

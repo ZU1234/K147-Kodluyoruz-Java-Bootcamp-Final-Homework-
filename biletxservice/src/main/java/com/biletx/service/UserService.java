@@ -1,9 +1,10 @@
 package com.biletx.service;
 
 import com.biletx.client.PaymentServiceClient;
-import com.biletx.configuration.BiletxUserSendMailQueue;
+import com.biletx.configuration.RabbitMQConfiguration;
 import com.biletx.converter.UserConverter;
 import com.biletx.enums.UserType;
+import com.biletx.exception.BasketDoesNotException;
 import com.biletx.exception.UserDoesNotException;
 import com.biletx.model.Basket;
 import com.biletx.model.Ticket;
@@ -20,7 +21,6 @@ import com.biletx.response.UserResponse;
 import com.biletx.util.PasswordUtil;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -48,7 +48,7 @@ public class UserService {
     @Autowired
     private RabbitTemplate rabbitTemplate;
     @Autowired
-    private BiletxUserSendMailQueue biletxUserSendMailQueue;
+    private RabbitMQConfiguration rabbitMQConfiguration;
 
 
     public UserResponse createUser(UserRequest userRequest) {
@@ -57,28 +57,31 @@ public class UserService {
 
             String hash = PasswordUtil.preparePasswordHash(userRequest.getPassword(), userRequest.getEmail());
             User savedUser = userRepository.save(userConverter.convert(userRequest, hash));
-            logger.log(Level.INFO, "[createUser] - user created: {0}", savedUser);
+            logger.log(Level.INFO, "[createUser] - user created: {0}", savedUser.getEmail());
 
-            login(new LoginRequest(userRequest.getEmail(), userRequest.getPassword()));
-            //rabbitTemplate.convertAndSend(biletxUserSendMailQueue.getQueueName(), savedUser.getEmail());
+          login(new LoginRequest(userRequest.getEmail(), userRequest.getPassword()));
+            rabbitTemplate.convertAndSend(rabbitMQConfiguration.getQueueName(),userRequest);
             return userConverter.convert(savedUser);
         } catch (Exception e) {
-
-            logger.log(Level.WARNING, "email : {0} zaten kayıtlı!", userRequest.getEmail());
-            throw new UserDoesNotException("Bu email kullanıcısı kayıtlı!");
+            logger.log(Level.WARNING, "[createUser] - email : {0} zaten kayıtlı!", userRequest.getEmail());
+            throw new UserDoesNotException("[createUser] - Bu email kullanıcısı kayıtlı!");
         }
 
     }
 
 
     public List<UserResponse> getAll() {
-        return userConverter.convert(userRepository.findAll());
+        List<UserResponse>responses=userConverter.convert(userRepository.findAll());
+        if(responses.size()==0){
+            throw new UserDoesNotException("[getAll] - Kayıtlı kullanıcı bulunmamaktadır.");
+        }
+        return responses;
     }
 
     public User getById(int userId) {
         return userRepository.findById(userId).orElseThrow(() -> {
-            logger.log(Level.WARNING, "email : {0} zaten kayıtlı!", userId);
-            throw new UserDoesNotException("User id : " + userId + "does " + "not exist.");
+            logger.log(Level.WARNING, "[getById] - email : {0} zaten kayıtlı!", userId);
+            throw new UserDoesNotException("[getById] - User id : " + userId + "does " + "not exist.");
         });
     }
 
@@ -99,14 +102,18 @@ public class UserService {
     }
 
     // Kullanıcının sepetindeki tüm biletleri listeler
-    public List<Basket> getSepet(Integer userId) {
+    public List<Basket> getBasketByUserId(Integer userId) {
+        List<Basket> responses=  basketRepository.findAll().stream().filter(s -> userId.equals(s.getUserId())).toList();
+        if(responses.isEmpty()){
+            throw new BasketDoesNotException("[getBasketByUserId] - Sepette ürün bulunmamaktadır.");
+        }
         return basketRepository.findAll().stream().filter(s -> userId.equals(s.getUserId())).toList();
     }
 
     // Sepete kayıt eder
     public void addTicketInBasket(Basket basket) {
         basketRepository.save(basket);
-        logger.log(Level.INFO, "Sepete bilet eklendi.", basket);
+        logger.log(Level.INFO, "[addTicketInBasket] - Sepete bilet eklendi.", basket);
     }
 
 

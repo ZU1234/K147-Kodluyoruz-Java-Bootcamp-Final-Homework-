@@ -1,24 +1,27 @@
 package com.biletx.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.biletx.enums.UserType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+
 
 @Entity
 
 @Table(name = "users")
+
 public class User {
 
     @Id
-    @SequenceGenerator(name = "user", sequenceName = "user_seq")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
+    @SequenceGenerator(name = "user", sequenceName = "seq")
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "seq")
+
     @Column(name = "id")
     private Integer id;
     @Column(name = "name")
     private String name;
-    @Column(name = "mail", unique = true)
-    private String mail;
+    @Column(name = "email", unique = true)
+    private String email;
     @JsonIgnore
     @Column(name = "password")
     private String password;
@@ -33,13 +36,14 @@ public class User {
         super();
     }
 
-    public User(String name, String mail, String password, UserType type, String phone) {
+    public User(String name, String email, String password, UserType type, String phone) {
         this.name = name;
-        this.mail = mail;
+        this.email = email;
         this.password = password;
         this.type = type;
         this.phone = phone;
     }
+
 
     public Integer getId() {
         return id;
@@ -57,12 +61,12 @@ public class User {
         this.name = name;
     }
 
-    public String getMail() {
-        return mail;
+    public String getEmail() {
+        return email;
     }
 
-    public void setMail(String mail) {
-        this.mail = mail;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -89,12 +93,13 @@ public class User {
         this.phone = phone;
     }
 
+
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", mail='" + mail + '\'' +
+                ", mail='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", type=" + type +
                 ", phone='" + phone + '\'' +

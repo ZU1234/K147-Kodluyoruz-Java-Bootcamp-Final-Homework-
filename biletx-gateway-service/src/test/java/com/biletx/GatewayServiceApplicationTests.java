@@ -1,10 +1,10 @@
-package com.biletx.gateway;
+package com.biletx;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class GatewayApplicationTests {
+class GatewayServiceApplicationTests {
 
 	@Test
 	void contextLoads() {

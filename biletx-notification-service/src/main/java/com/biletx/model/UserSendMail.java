@@ -1,19 +1,21 @@
 package com.biletx.model;
 
 import javax.persistence.*;
+import java.io.Serial;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "user_send_mails")
 public class UserSendMail {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
     @Column(name = "message")
     private String message;
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private User user;
+
+    @Column(name = "user_email")
+    private String userEmail;
     @Column(name = "date")
     LocalDateTime sendDate;
 
@@ -38,12 +40,12 @@ public class UserSendMail {
         this.message = message;
     }
 
-    public User getUser() {
-        return user;
+    public String getUserEmail() {
+        return userEmail;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
     }
 
     public LocalDateTime getSendDate() {
@@ -59,7 +61,7 @@ public class UserSendMail {
         return "UserSendMail{" +
                 "id=" + id +
                 ", message='" + message + '\'' +
-                ", user=" + user +
+                ", userEmail='" + userEmail + '\'' +
                 ", sendDate=" + sendDate +
                 '}';
     }

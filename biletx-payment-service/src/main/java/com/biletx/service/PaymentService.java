@@ -41,6 +41,7 @@ public class PaymentService {
             throw new BasketDoesNotException("Sepette ürün bulunmamaktadır. Lütfen önce ürün ekleyiniz.");
         }
         Integer userId = paymentRequest.getUserId();
+
         User user = userRepository.findById(userId).orElseThrow(() -> new UserDoesNotException("user bulunamadi."));
 
         PaymentResponse paymentResponse = new PaymentResponse();
@@ -48,14 +49,14 @@ public class PaymentService {
         if (isPayment(paymentRequest.getCreditCard())) {
             basketRepository.findAllByUserId(userId)
                     .forEach(obj -> {
-                        System.out.println(obj);
+
                         Ticket ticket = convert(user, obj);
                         obj.getVehicle().setEmptySeat(obj.getVehicle().getEmptySeat() - 1);
                         ticketRepository.save(ticket);
-                        System.out.println(ticket);
+
                         vehicleRepository.save(obj.getVehicle());
 
-                        //rabbitTemplate.convertAndSend(biletxUserSendSmsQueue.getQueueName(), ticket);
+                        rabbitTemplate.convertAndSend(biletxUserSendSmsQueue.getQueueName(), ticket);
                         basketRepository.delete(obj);
                     });
 

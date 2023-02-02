@@ -39,12 +39,12 @@ public class VehicleController {
         return ResponseEntity.ok(vehicleService.getAllByVehicleType(vehicleType));
     }
 
-    @PostMapping(value = "/sepet")
+    @PostMapping(value = "/basket")
     public ResponseEntity<List<BasketResponse>> basketAddTicket(@RequestBody TicketRequest ticket) {
         return ResponseEntity.ok(vehicleService.sepetAdd(ticket));
     }
 
-    @GetMapping(value = "/sepet/{id}")
+    @GetMapping(value = "/basket/{id}")
     public ResponseEntity<List<BasketResponse>> getAllBasketByUserId(@PathVariable int id) {
         return ResponseEntity.ok(vehicleService.getAllBasketByUserId(id));
     }

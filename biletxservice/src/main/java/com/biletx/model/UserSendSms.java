@@ -9,7 +9,6 @@ public class UserSendSms {
     @Column(name = "date")
     LocalDateTime sendDate;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
     @Column(name = "message")
@@ -17,9 +16,9 @@ public class UserSendSms {
 
     @Column(name = "user_id")
     private Integer userId;
-
-    @Column(name = "vehicle_id")
-    private Integer vehicleId;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "vehicle_id", referencedColumnName = "id")
+    private Vehicle vehicle;
 
     public UserSendSms() {
     }
@@ -53,12 +52,12 @@ public class UserSendSms {
         return sendDate;
     }
 
-    public Integer getVehicleId() {
-        return vehicleId;
+    public Vehicle getVehicle() {
+        return vehicle;
     }
 
-    public void setVehicleId(Integer vehicleId) {
-        this.vehicleId = vehicleId;
+    public void setVehicle(Vehicle vehicle) {
+        this.vehicle = vehicle;
     }
 
     public void setSendDate(LocalDateTime sendDate) {
@@ -72,7 +71,7 @@ public class UserSendSms {
                 ", id=" + id +
                 ", message='" + message + '\'' +
                 ", userId=" + userId +
-                ", vehicleId=" + vehicleId +
+                ", vehicle=" + vehicle +
                 '}';
     }
 }

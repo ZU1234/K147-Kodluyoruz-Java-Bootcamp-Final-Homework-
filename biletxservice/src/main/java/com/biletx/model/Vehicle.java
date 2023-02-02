@@ -6,12 +6,14 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
+
 
 @Entity
 @Table(name = "vehicles")
 
-public class Vehicle {
+public class Vehicle implements Serializable {
     @Id
 
     @SequenceGenerator(name = "vehicle", sequenceName = "vehicle_seq")
@@ -24,7 +26,7 @@ public class Vehicle {
     @Column(name = "no")
     private String no;
     @Column(name = "type")
-    @Enumerated(EnumType.STRING )
+    @Enumerated(EnumType.STRING)
     private VehicleType vehicleType;
     @Column(name = "from_where")
     private String fromWhere;
@@ -32,10 +34,10 @@ public class Vehicle {
     private String whereTo;
     @Column(name = "ridership")
     private Integer ridership;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
-    @Temporal(TemporalType.DATE)
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE, pattern = "dd-MM-yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @Column(name = "departure_time")
+    @Temporal(value = TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date departureTime;
 
     @Column(name = "departure_clock")
@@ -51,6 +53,21 @@ public class Vehicle {
 
     public Vehicle() {
         super();
+    }
+
+    public Vehicle(Integer id, VehicleStatus status, String no, VehicleType vehicleType, String fromWhere, String whereTo, Integer ridership, Date departureTime, String departureClock, String clockOfArrival, Integer emptySeat, Integer price) {
+        this.id = id;
+        this.status = status;
+        this.no = no;
+        this.vehicleType = vehicleType;
+        this.fromWhere = fromWhere;
+        this.whereTo = whereTo;
+        this.ridership = ridership;
+        this.departureTime = departureTime;
+        this.departureClock = departureClock;
+        this.clockOfArrival = clockOfArrival;
+        this.emptySeat = emptySeat;
+        this.price = price;
     }
 
     public VehicleStatus getStatus() {
@@ -166,4 +183,5 @@ public class Vehicle {
                 ", price=" + price +
                 '}';
     }
+
 }

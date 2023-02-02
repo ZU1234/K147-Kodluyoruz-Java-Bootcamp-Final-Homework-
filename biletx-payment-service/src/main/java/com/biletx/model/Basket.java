@@ -17,10 +17,10 @@ public class Basket {
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "vehicleId", referencedColumnName = "id")
+    @JoinColumn(name = "vehicle_id", referencedColumnName = "id")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Vehicle vehicle;
-    @Column(name = "userId")
+    @Column(name = "user_id")
     private Integer userId;
     @Column(name = "passenger_name")
     private String passengerName;
